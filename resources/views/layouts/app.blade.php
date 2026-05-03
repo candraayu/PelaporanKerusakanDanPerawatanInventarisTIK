@@ -280,7 +280,7 @@
                                             <img src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar wid-35" />
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1">{{ Auth::user()->name ?? 'User Name' }}</h6>
+                                            <h6 class="mb-1">{{ Auth::user()->nama ?? 'User Name' }}</h6>
                                             <span>{{ Auth::user()->email ?? 'user@email.com' }}</span>
                                         </div>
                                     </div>

@@ -7,7 +7,7 @@ use App\Models\Kecamatan;
 
 class InventarisService
 {
-    public function getAll(array $filters = [], int $idKecamatan = null)
+    public function getAll(array $filters = [], int $idKecamatan = null, $paginate=true)
     {
         $query = Inventaris::with('kecamatan');
 
@@ -27,7 +27,9 @@ class InventarisService
             });
         }
 
-        return $query->latest()->paginate(10);
+        return $paginate 
+        ? $query->latest()->paginate(10) 
+        : $query->latest()->get();
     }
 
     public function generateKodeInventaris(): string

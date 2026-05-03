@@ -25,7 +25,7 @@ class PerawatanController extends Controller
     {
         $idKecamatan = Auth::user()->id_kecamatan;
         $perawatan = $this->perawatanService->getAll($request->validated(), $idKecamatan);
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
 
         return view('operator.perawatan', compact('perawatan', 'inventaris'));
     }
@@ -33,7 +33,7 @@ class PerawatanController extends Controller
     public function create()
     {
         $idKecamatan = Auth::user()->id_kecamatan;
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
         return view('operator.perawatan.create', compact('inventaris'));
     }
 
@@ -47,7 +47,7 @@ class PerawatanController extends Controller
     {
         $perawatan = $this->perawatanService->find($id);
         $idKecamatan = Auth::user()->id_kecamatan;
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
 
         return view('operator.perawatan.edit', compact('perawatan', 'inventaris'));
     }
