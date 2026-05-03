@@ -25,7 +25,7 @@ class LaporanKerusakanController extends Controller
     {
         $idKecamatan = Auth::user()->id_kecamatan;
         $laporan = $this->laporanService->getAll($request->validated(), 10, $idKecamatan);
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
 
         return view('operator.laporan', compact('laporan', 'inventaris'));
     }
@@ -33,7 +33,7 @@ class LaporanKerusakanController extends Controller
     public function create()
     {
         $idKecamatan = Auth::user()->id_kecamatan;
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
         return view('operator.laporan.create', compact('inventaris'));
     }
 
@@ -52,7 +52,7 @@ class LaporanKerusakanController extends Controller
         }
 
         $idKecamatan = Auth::user()->id_kecamatan;
-        $inventaris = $this->inventarisService->getAll([], $idKecamatan);
+        $inventaris = $this->inventarisService->getAll([], $idKecamatan, false);
 
         return view('operator.laporan.edit', compact('laporan', 'inventaris'));
     }
