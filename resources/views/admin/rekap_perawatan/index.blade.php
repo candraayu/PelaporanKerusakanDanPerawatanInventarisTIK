@@ -73,7 +73,7 @@
             <tbody>
                 @forelse($data as $index => $item)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $data->firstItem() + $index }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tanggal_perawatan)->format('d/m/Y') }}</td>
                      <td>
                         {{ $item->inventaris->kecamatan->nama_kecamatan ?? '-' }}
@@ -100,4 +100,10 @@
         </table>
     </div>
 </div>
+@if($data->hasPages())
+<div class="card-footer d-flex justify-content-end">
+    {{ $data->appends(request()->query())->links('pagination::bootstrap-5') }}
+</div>
+@endif
+
 @endsection

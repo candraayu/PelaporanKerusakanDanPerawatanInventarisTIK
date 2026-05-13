@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="keyword" content="">
     <meta name="author" content="theme_ocean">
-    <title>Siketik || Pemkab Pati</title>
+    <title>SI-LAPORTIK || Pemkab Pati</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/vendors.min.css') }}">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="text-center">
                         <h2 class="fs-20 fw-bolder mb-4">Masuk</h2>
-                        <h4 class="fs-13 fw-bold mb-2">Selamat Datang Di SIKETIK</h4>
+                        <h4 class="fs-13 fw-bold mb-2">Selamat Datang Di SI-LAPORTIK</h4>
                         <p class="fs-12 fw-medium text-muted">Masukkan email dan password untuk mengakses akun Anda.</p>
                     </div>
 

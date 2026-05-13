@@ -52,7 +52,7 @@
             <tbody class="table-border-bottom-0">
                 @forelse ($laporan as $item)
                 <tr>
-                    <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->tanggal_laporan)->format('d/m/Y') }}</td>
                     <td>{{ $item->user->nama }}</td>
                     <td>{{ $item->inventaris->nama_barang }}</td>
                     <td>{{ $item->inventaris->kecamatan?->nama_kecamatan ?? '-' }}</td>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="col-6">
                         <small class="text-muted d-block">Tanggal Lapor</small>
-                        <span class="fw-bold">{{ $item->created_at->translatedFormat('d F Y') }}</span>
+                        <span class="fw-bold">{{ \Carbon\Carbon::parse($item->tanggal_laporan)->translatedFormat('d F Y') }}</span>
                     </div>
                     <div class="col-12 border-top pt-2">
                         <small class="text-muted d-block">Nama Barang</small>

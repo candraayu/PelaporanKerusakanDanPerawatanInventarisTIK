@@ -14,7 +14,7 @@
 <body>
     <div class="header">
         <h2>Rekap Laporan Kerusakan TIK</h2>
-        <p>Gedung SIKETIK - Kabupaten Pati</p>
+        <p>Dinas Kependudukan dan Pencatatan Sipil - Kabupaten Pati</p>
         @if(request('tanggal_awal') || request('tanggal_akhir'))
             <p>Periode: {{ request('tanggal_awal') ?? '...' }} s/d {{ request('tanggal_akhir') ?? '...' }}</p>
         @endif

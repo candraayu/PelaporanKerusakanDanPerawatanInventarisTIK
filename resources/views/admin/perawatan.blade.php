@@ -5,7 +5,7 @@
 @section('content')
 <div class="row mb-4">
     <div class="col-12 d-flex justify-content-between align-items-center">
-        <h4 class="fw-bold py-3 mb-0">Data Perawatan (Semua Kecamatan)</h4>
+        <h4 class="fw-bold py-3 mb-0">Data Perawatan</h4>
 
         <form action="{{ route('admin.perawatan.index') }}" method="GET" class="d-flex gap-2">
             <div class="input-group">

@@ -29,8 +29,12 @@
 
     <div class="header">
         <h2>Rekap Laporan Kerusakan Barang</h2>
-        <p>Periode: {{ request('tgl_mulai') ?? 'Semua' }} s/d {{ request('tgl_selesai') ?? 'Sekarang' }}</p>
-    </div>
+        <p>
+            Periode:
+            {{ request('tanggal_awal') ? \Carbon\Carbon::parse(request('tanggal_awal'))->format('d/m/Y') : 'Semua' }}
+            s/d
+            {{ request('tanggal_akhir') ? \Carbon\Carbon::parse(request('tanggal_akhir'))->format('d/m/Y') : 'Sekarang' }}
+        </p>
 
     <table>
         <thead>
@@ -47,7 +51,7 @@
             @foreach ($laporan as $index => $item)
             <tr>
                 <td class="text-center">{{ $index + 1 }}</td>
-                <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tanggal_laporan)->format('d/m/Y') }}</td>
                 <td>{{ $item->user->nama }}</td>
                 <td>
                     {{ $item->inventaris->nama_barang }}<br>

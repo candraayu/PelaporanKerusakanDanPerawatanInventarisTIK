@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\LaporanKerusakan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 class LaporanService
 {
     public function getAll(array $filters = [], int $perPage = 10, int $idKecamatan = null)
@@ -12,19 +13,21 @@ class LaporanService
         $query = LaporanKerusakan::with(['inventaris', 'user', 'catatan.user']);
 
         if ($idKecamatan) {
-            $query->whereHas('inventaris', function($q) use ($idKecamatan) {
+            $query->whereHas('inventaris', function ($q) use ($idKecamatan) {
                 $q->where('id_kecamatan', $idKecamatan);
             });
         }
 
         if (isset($filters['search']) && $filters['search'] != '') {
             $search = $filters['search'];
-            $query->where(function($q) use ($search) {
-                $q->whereHas('inventaris', function($sq) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('inventaris', function ($sq) use ($search) {
                     $sq->where('nama_barang', 'like', "%$search%")
-                      ->orWhere('kode_inventaris', 'like', "%$search%");
-                })->orWhereHas('user', function($sq) use ($search) {
+                        ->orWhere('kode_inventaris', 'like', "%$search%");
+                })->orWhereHas('user', function ($sq) use ($search) {
                     $sq->where('nama', 'like', "%$search%");
+                })->orWhereHas('inventaris.kecamatan', function ($sq) use ($search) {
+                    $sq->where('nama_kecamatan', 'like', "%$search%");
                 })->orWhere('deskripsi_kerusakan', 'like', "%$search%");
             });
         }
@@ -33,9 +36,9 @@ class LaporanService
             $query->where('status', $filters['status']);
         }
 
-        if (isset($filters['tgl_mulai']) && isset($filters['tgl_selesai'])) {
-            $query->whereBetween('created_at', [$filters['tgl_mulai'] . ' 00:00:00', $filters['tgl_selesai'] . ' 23:59:59']);
-        }
+        // if (isset($filters['tgl_mulai']) && isset($filters['tgl_selesai'])) {
+        //     $query->whereBetween('created_at', [$filters['tgl_mulai'] . ' 00:00:00', $filters['tgl_selesai'] . ' 23:59:59']);
+        // }
 
         if (isset($filters['tanggal_awal'])) {
             $query->whereDate('tanggal_laporan', '>=', $filters['tanggal_awal']);
@@ -45,7 +48,7 @@ class LaporanService
             $query->whereDate('tanggal_laporan', '<=', $filters['tanggal_akhir']);
         }
 
-        $query->latest();
+        $query->latest('tanggal_laporan');
 
         return $perPage ? $query->paginate($perPage)->withQueryString() : $query->get();
     }

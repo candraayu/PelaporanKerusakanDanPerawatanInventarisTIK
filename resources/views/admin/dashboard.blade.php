@@ -10,7 +10,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <h2 class="text-white fw-bold mb-2">Selamat Datang, {{ Auth::user()->nama }}! 👋</h2>
-                        <p class="text-white-50 mb-0">Berikut adalah ringkasan sistem SIKETIK hari ini. Pantau laporan dan inventaris dengan mudah.</p>
+                        <p class="text-white-50 mb-0">Berikut adalah ringkasan sistem SI-LAPORTIK hari ini. Pantau laporan dan inventaris dengan mudah.</p>
                     </div>
                     <div class="col-sm-6 text-center d-none d-sm-block">
                         <img src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="User" class="img-fluid rounded-circle border border-4 border-white-50 shadow" style="width: 100px; height: 100px; object-fit: cover;">
@@ -149,7 +149,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div class="d-flex align-items-center">
-                            <span class="badge bg-warning bullet me-2"></span>
+                            <span class="badge bg-danger bullet me-2"></span>
                             <span class="text-muted">Ditolak</span>
                         </div>
                         <span class="fw-bold">{{ $laporanDitolak }}</span>
@@ -160,6 +160,21 @@
                             <span class="text-muted">Diproses</span>
                         </div>
                         <span class="fw-bold">{{ $laporanDiproses }}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-info bullet me-2"></span>
+                            <span class="text-muted">Disetujui</span>
+                        </div>
+                        <span class="fw-bold">{{ $laporanDisetujui }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-secondary bullet me-2"></span>
+                            <span class="text-muted">Menunggu</span>
+                        </div>
+                        <span class="fw-bold">{{ $laporanMenunggu }}</span>
                     </div>
                 </div>
             </div>
@@ -292,13 +307,19 @@
         var trendChart = new ApexCharts(document.querySelector("#reports-trend-chart"), trendOptions);
         trendChart.render();
         var statusOptions = {
-            series: [{{ $laporanSelesai }}, {{ $laporanDiproses }}, {{$laporanDitolak}}],
+            series: [
+                {{ $laporanSelesai }},
+                {{ $laporanDiproses }},
+                {{ $laporanDitolak }},
+                {{ $laporanDisetujui }},
+                {{ $laporanMenunggu }}
+            ],
             chart: {
                 type: 'donut',
                 height: 250
             },
-            labels: ['Selesai', 'Diproses', 'Ditolak'],
-            colors: ['#4caf50', '#ffc107', '#ced4da'],
+            labels: ['Selesai', 'Diproses', 'Ditolak', 'Disetujui', 'Menunggu'],
+            colors: ['#4caf50', '#ffc107', '#dc3545', '#0dcaf0', '#6c757d'],
             legend: { show: false },
             dataLabels: { enabled: false },
             plotOptions: {

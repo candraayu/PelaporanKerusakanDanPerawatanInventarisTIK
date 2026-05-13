@@ -4,8 +4,75 @@
 
 @section('content')
 <div class="row mb-4">
-    <div class="col-12">
+    <div class="col-12 d-flex justify-content-between align-items-center">
         <h4 class="fw-bold py-3 mb-0">Laporan Kerusakan</h4>
+
+        <div class="d-flex gap-2">
+
+            {{-- Search --}}
+            <form action="{{ route('admin.laporan.index') }}" method="GET" class="d-flex gap-2">
+                <input type="hidden" name="status" value="{{ request('status') }}">
+
+                <div class="input-group input-group-sm">
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Cari laporan..."
+                        value="{{ request('search') }}"
+                    >
+
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bx bx-search"></i>
+                    </button>
+
+                    @if(request('search'))
+                        <a href="{{ route('admin.laporan.index', ['status' => request('status')]) }}"
+                           class="btn btn-outline-secondary">
+                            <i class="bx bx-x"></i>
+                        </a>
+                    @endif
+                </div>
+            </form>
+
+            {{-- Filter Status --}}
+            <form action="{{ route('admin.laporan.index') }}" method="GET">
+                <input type="hidden" name="search" value="{{ request('search') }}">
+
+                <select name="status"
+                        class="form-select form-select-sm"
+                        onchange="this.form.submit()">
+
+                    <option value="">Semua Status</option>
+
+                    <option value="menunggu"
+                        {{ request('status') == 'menunggu' ? 'selected' : '' }}>
+                        Menunggu
+                    </option>
+
+                    <option value="disetujui"
+                        {{ request('status') == 'disetujui' ? 'selected' : '' }}>
+                        Disetujui
+                    </option>
+
+                    <option value="ditolak"
+                        {{ request('status') == 'ditolak' ? 'selected' : '' }}>
+                        Ditolak
+                    </option>
+
+                    <option value="diproses"
+                        {{ request('status') == 'diproses' ? 'selected' : '' }}>
+                        Diproses
+                    </option>
+
+                    <option value="selesai"
+                        {{ request('status') == 'selesai' ? 'selected' : '' }}>
+                        Selesai
+                    </option>
+
+                </select>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -88,7 +155,10 @@
 
     @if($laporan->hasPages())
     <div class="card-footer d-flex justify-content-end">
-        {{ $laporan->links('pagination::bootstrap-5') }}
+        {{ $laporan->appends([
+        'search' => request('search'),
+        'status' => request('status')
+        ])->links('pagination::bootstrap-5') }}
     </div>
     @endif
 </div>

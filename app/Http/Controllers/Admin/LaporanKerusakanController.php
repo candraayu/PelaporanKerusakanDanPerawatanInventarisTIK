@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\LaporanService;
+use Illuminate\Http\Request;
 
 class LaporanKerusakanController extends Controller
 {
@@ -14,9 +15,9 @@ class LaporanKerusakanController extends Controller
         $this->laporanService = $laporanService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $laporan = $this->laporanService->getAll();
+        $laporan = $this->laporanService->getAll($request->all());
         return view('admin.laporan.index', compact('laporan'));
     }
 

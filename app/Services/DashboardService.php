@@ -11,12 +11,25 @@ class DashboardService
     public function getStats(): array
     {
         return [
-            'totalKecamatan'  => Kecamatan::count(),
-            'totalInventaris' => Inventaris::count(),
-            'totalLaporan'    => LaporanKerusakan::count(),
-            'laporanDiproses' => LaporanKerusakan::whereIn('status', ['diproses', 'disetujui'])->count(),
-            'laporanSelesai'  => LaporanKerusakan::where('status', 'selesai')->count(),
-            'laporanDitolak' => LaporanKerusakan::where('status', 'ditolak')->count(),
+            // 'totalKecamatan'  => Kecamatan::count(),
+            // 'totalInventaris' => Inventaris::count(),
+            // 'totalLaporan'    => LaporanKerusakan::count(),
+            // 'laporanDiproses' => LaporanKerusakan::whereIn('status', ['diproses', 'disetujui'])->count(),
+            // 'laporanSelesai'  => LaporanKerusakan::where('status', 'selesai')->count(),
+            // 'laporanDitolak' => LaporanKerusakan::where('status', 'ditolak')->count(),
+            'totalKecamatan'   => Kecamatan::count(),
+            'totalInventaris'  => Inventaris::count(),
+            'totalLaporan'     => LaporanKerusakan::count(),
+
+            'laporanMenunggu'  => LaporanKerusakan::where('status', 'menunggu')->count(),
+
+            'laporanDisetujui' => LaporanKerusakan::where('status', 'disetujui')->count(),
+
+            'laporanDiproses'  => LaporanKerusakan::where('status', 'diproses')->count(),
+
+            'laporanSelesai'   => LaporanKerusakan::where('status', 'selesai')->count(),
+
+            'laporanDitolak'   => LaporanKerusakan::where('status', 'ditolak')->count(),
         ];
     }
 
@@ -56,7 +69,7 @@ class DashboardService
     public function getRecentReports(int $limit = 5)
     {
         return LaporanKerusakan::with(['inventaris', 'user'])
-            ->orderBy('tanggal_laporan', 'desc')
+            ->latest()
             ->limit($limit)
             ->get();
     }

@@ -41,7 +41,7 @@
             <tbody class="table-border-bottom-0">
                 @forelse ($laporan as $item)
                 <tr>
-                    <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->tanggal_laporan)->format('d/m/Y') }}</td>
                     <td>{{ $item->user->nama }}</td>
                     <td>
                         <strong>{{ $item->inventaris->kode_inventaris }}</strong><br>
@@ -90,19 +90,39 @@
                     <div class="mb-3">
                         <label class="form-label">Rentang Tanggal</label>
                         <div class="input-group">
-                            <input type="date" name="tgl_mulai" class="form-control" value="{{ request('tgl_mulai') }}">
+                            <input type="date" name="tanggal_awal" class="form-control" value="{{ request('tanggal_awal') }}">
                             <span class="input-group-text">s/d</span>
-                            <input type="date" name="tgl_selesai" class="form-control" value="{{ request('tgl_selesai') }}">
+                            <input type="date" name="tanggal_akhir" class="form-control" value="{{ request('tanggal_akhir') }}">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Status Laporan</label>
                         <select name="status" class="form-select">
                             <option value="">Semua Status</option>
-                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="proses" {{ request('status') == 'proses' ? 'selected' : '' }}>Proses</option>
-                            <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                            <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                            <option value="menunggu"
+                                {{ request('status') == 'menunggu' ? 'selected' : '' }}>
+                                Menunggu
+                            </option>
+
+                            <option value="disetujui"
+                                {{ request('status') == 'disetujui' ? 'selected' : '' }}>
+                                Disetujui
+                            </option>
+
+                            <option value="diproses"
+                                {{ request('status') == 'diproses' ? 'selected' : '' }}>
+                                Diproses
+                            </option>
+
+                            <option value="selesai"
+                                {{ request('status') == 'selesai' ? 'selected' : '' }}>
+                                Selesai
+                            </option>
+
+                            <option value="ditolak"
+                                {{ request('status') == 'ditolak' ? 'selected' : '' }}>
+                                Ditolak
+                            </option>
                         </select>
                     </div>
                 </div>
